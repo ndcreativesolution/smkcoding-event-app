@@ -1,8 +1,10 @@
 package com.ndcreative.eventsmk
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_event.view.*
@@ -38,12 +40,17 @@ class EventAdapter(private val itemEventList: ArrayList<Event>) :
             val txtEventName = itemView.tv_event_title!!
             val txtEventDate = itemView.tv_event_date!!
             val imgPoster = itemView.img_poster!!
+            val cardEvent = itemView.card_event!!
 
             txtEventName.text = event.title
             txtEventDate.text = event.date
-            Picasso.get()
-                .load(event.image)
-                .into(imgPoster)
+            Picasso.get().load(event.image).into(imgPoster)
+            cardEvent.setOnClickListener {
+                Toast.makeText(context, event.title, Toast.LENGTH_SHORT).show()
+                val intent = Intent(context,DetailEventActivity::class.java)
+
+                context.startActivity(intent)
+            }
         }
 
 
