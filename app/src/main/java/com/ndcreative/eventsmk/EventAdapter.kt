@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_event.view.*
 class EventAdapter(private val itemEventList: ArrayList<Event>) :
     RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
         return ViewHolder(v)
     }
@@ -26,18 +26,27 @@ class EventAdapter(private val itemEventList: ArrayList<Event>) :
         return itemEventList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.get()
-            .load(itemEventList[position].image)
-            .into(holder!!.imgPoster)
-        holder.txtEventTitle.text = itemEventList[position].title
-        holder.txtEventDate.text = itemEventList[position].date
+    override fun onBindViewHolder(holder: EventAdapter.ViewHolder, position: Int) {
+        holder.bindItems(itemEventList[position])
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgPoster = itemView.img_poster!!
-        val txtEventTitle = itemView.tv_event_title!!
-        val txtEventDate = itemView.tv_event_date!!
+        val context = itemView.context
+
+        fun bindItems(event: Event) {
+
+            val txtEventName = itemView.tv_event_title!!
+            val txtEventDate = itemView.tv_event_date!!
+            val imgPoster = itemView.img_poster!!
+
+            txtEventName.text = event.title
+            txtEventDate.text = event.date
+            Picasso.get()
+                .load(event.image)
+                .into(imgPoster)
+        }
+
+
     }
 
 }
