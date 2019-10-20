@@ -48,7 +48,12 @@ class EventAdapter(private val itemEventList: ArrayList<Event>) :
             cardEvent.setOnClickListener {
                 Toast.makeText(context, event.title, Toast.LENGTH_SHORT).show()
                 val intent = Intent(context,DetailEventActivity::class.java)
-
+                intent.putExtra("event_name", event.title)
+                intent.putExtra("event_date", event.date)
+                intent.putExtra("img_poster", event.image)
+                intent.putExtra("event_desc", event.description)
+                intent.putExtra("latitude", event.latitude)
+                intent.putExtra("longitude", event.longitude)
                 context.startActivity(intent)
             }
         }
